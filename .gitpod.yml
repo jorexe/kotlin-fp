@@ -1,0 +1,9 @@
+image:
+  file: .gitpod.Dockerfile
+tasks:
+  - init: ./gradlew clean build
+    command: ./gradlew test
+vscode:
+  extensions:
+    - mathiasfrohlich.Kotlin
+    - fwcd.kotlin
