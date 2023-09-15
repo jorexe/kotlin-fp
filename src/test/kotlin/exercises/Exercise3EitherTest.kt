@@ -33,17 +33,17 @@ class Exercise3EitherTest {
         target.getStreet(Address("1885 Crist Islands", "Tuvalu", Phone("671-276-0870").toOptional()).asRight())
             .assertEqualsRight("1885 Crist Islands")
         target.getStreet(nullObjectFound.asLeft())
-            .assertEqualsLeft(nullObjectFound.asLeft())
+            .assertEqualsLeft(nullObjectFound)
     }
 
     @Test
     fun `getPhone tests`() {
         target.getPhone(Address("1885 Crist Islands", "Tuvalu", Phone("671-276-0870").toOptional()).asRight())
-            .assertEqualsRight("671-276-0870")
+            .assertEqualsRight(Phone("671-276-0870"))
         target.getPhone(Address("1885 Crist Islands", "Tuvalu", Optional.empty()).asRight())
-            .assertEqualsLeft(nullObjectFound.asLeft())
+            .assertEqualsLeft(nullObjectFound)
         target.getPhone(nullObjectFound.asLeft())
-            .assertEqualsLeft(nullObjectFound.asLeft())
+            .assertEqualsLeft(nullObjectFound)
     }
 
     @Test
@@ -61,7 +61,7 @@ class Exercise3EitherTest {
         TODO("Writing this tests are part of the exercise")
     }
 
-    fun invalidFields(vararg field: String) = field.map { Exercise3Either.InvalidField(it) }
+    private fun invalidFields(vararg field: String) = field.map { Exercise3Either.InvalidField(it) }
 
     @Test
     fun `createAddress tests`() {
