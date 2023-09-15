@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture
  */
 fun immutability() {
     val optional = Optional.of(5)
-    val newOptional = optional.map { n -> n + 1}
+    val newOptional = optional.map { n -> n + 1 }
 
     println(optional) // Prints Optional(5)
     println(newOptional) // Prints Optional(6)
@@ -101,7 +101,7 @@ fun highOrderFunctions() {
 
     // Then, if we want to combine different functions with different, the compiler will help us
     val productToPrice: (Product) -> Double = { it.price }
-    val priceToString: (Double) -> String = { "$" + String.format("%.2f", it)}
+    val priceToString: (Double) -> String = { "$" + String.format("%.2f", it) }
 
     // How would you join the blocks?
     fun renderProductPrice(product: Product): String = TODO()
@@ -130,7 +130,7 @@ fun monadsAndCommonFunctions() {
     val aList = listOf(2, 3)
 
     // We saw this before
-    aList.map { n -> n + 1} // [3, 4]
+    aList.map { n -> n + 1 } // [3, 4]
 
     // And the new one
     aList.flatMap { n -> listOf(n, n + 1) } // [2, 3, 3, 4]
@@ -157,9 +157,9 @@ fun monadsAndCommonFunctions() {
      * - applies a f: A -> B to every element inside a M<A> and returns M<B>
      * - returns always the same amount of elements
      */
-    listOf(1,2,3,4).map {x -> x * x}
-    listOf(1,2,3,4).map {x -> x.toString()}
-    Optional.of(3).map { x -> x * x}
+    listOf(1, 2, 3, 4).map { x -> x * x }
+    listOf(1, 2, 3, 4).map { x -> x.toString() }
+    Optional.of(3).map { x -> x * x }
 
     /** flatMap(f: A -> M<B>): M<B>
      *
@@ -172,7 +172,7 @@ fun monadsAndCommonFunctions() {
     fun getOrder(id: OrderId): Future<Order> = TODO()
     fun getUser(id: UserId): Future<User> = TODO()
 
-    val orderUser: Future<User> = getOrder(OrderId(1)).flatMap { order -> getUser(order.userId)}
+    val orderUser: Future<User> = getOrder(OrderId(1)).flatMap { order -> getUser(order.userId) }
 
     // With optionals
     val optionalAddress: Optional<Address> = Optional.empty()
@@ -186,8 +186,8 @@ fun monadsAndCommonFunctions() {
      * - applies a f: A -> Boolean and get the values that returns true when the function applied
      * - less elements than before
      */
-    listOf(1, 2, 3, 4).filter { it % 2 == 0} // [2, 4]
-    Optional.of(3).filter { it % 2 == 0} // Empty
+    listOf(1, 2, 3, 4).filter { it % 2 == 0 } // [2, 4]
+    Optional.of(3).filter { it % 2 == 0 } // Empty
 
     /**
      * fold(acc: Z, (Z, A) -> Z): Z
@@ -198,7 +198,7 @@ fun monadsAndCommonFunctions() {
      *
      * More info on fold/reduce https://kotlinlang.org/docs/collection-aggregate.html#fold-and-reduce
      */
-    listOf(1, 2, 3, 4).fold(0) { acc, x -> acc + x} // Sum of all elements
+    listOf(1, 2, 3, 4).fold(0) { acc, x -> acc + x } // Sum of all elements
     // Let's break this
     // acc=0, x=1 -> Remaining [2, 3, 4]
     // acc=1, x=2 -> Remaining [3, 4]
@@ -214,5 +214,6 @@ fun monadsAndCommonFunctions() {
  * Renaming completable future to make it easier
  */
 typealias Future<T> = CompletableFuture<T>
+
 fun <A, B> Future<A>.map(f: (A) -> B): Future<B> = thenApply(f)
 fun <A, B> Future<A>.flatMap(f: (A) -> Future<B>): Future<B> = thenCompose(f)

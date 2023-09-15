@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class Exercise2OrdersTest {
+
     private val target = Exercise2Orders(TestProductApi, TestOrderApi)
 
     private fun order(id: Int): Order = TestOrderApi.findById(OrderId(id)).get()

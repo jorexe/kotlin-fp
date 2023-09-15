@@ -68,7 +68,9 @@ class Exercise3EitherTest {
         target.createAddress(null, null, null).assertEqualsLeft(invalidFields("street", "country"))
         target.createAddress("street", null, null).assertEqualsLeft(invalidFields("country"))
         target.createAddress(null, "country", Phone("1234")).assertEqualsLeft(invalidFields("street"))
-        target.createAddress("street", "country", null).assertEqualsRight(Address("street", "country", Optional.empty()))
-        target.createAddress("street", "country", Phone("1234")).assertEqualsRight(Address("street", "country", Phone("1234").toOptional()))
+        target.createAddress("street", "country", null)
+            .assertEqualsRight(Address("street", "country", Optional.empty()))
+        target.createAddress("street", "country", Phone("1234"))
+            .assertEqualsRight(Address("street", "country", Phone("1234").toOptional()))
     }
 }

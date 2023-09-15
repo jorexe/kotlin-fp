@@ -1,6 +1,7 @@
 package exercises
 
 class Exercise1Lists {
+
     /**
      * Function that returns a list with increased by 1 numbers
      *

@@ -12,6 +12,7 @@ import models.Phone
 import kotlin.jvm.optionals.getOrNull
 
 class Exercise3Either {
+
     /**
      * Either type is a monad that can contain two different values,
      * one in case of success or another one in case of error
@@ -37,8 +38,8 @@ class Exercise3Either {
 
     // And a common pattern is to define an error class to be able to handle them more accurately
     sealed class SampleFailure
-    data class SomeSampleFailure(val code: Int): SampleFailure()
-    data object AnotherSampleFailure: SampleFailure()
+    data class SomeSampleFailure(val code: Int) : SampleFailure()
+    data object AnotherSampleFailure : SampleFailure()
 
     val eitherFailure: Either<SampleFailure, Int> = SomeSampleFailure(2).asLeft()
 
@@ -46,6 +47,7 @@ class Exercise3Either {
      * Let's start: Create a function that given a nullable object returns an either with the object or an error
      */
     object NullObjectFound
+
     fun <T> eitherValueOrNullObjectFound(t: T?): Either<NullObjectFound, T> = TODO()
 
     /**
@@ -70,7 +72,7 @@ class Exercise3Either {
     /**
      * Take a look at this myMap implementation, please make sure you understand the signature and the generic types
      */
-    fun <L, R, R2> myMap(either: Either<L, R>, f: (R) -> R2): Either<L, R2> = when(either) {
+    fun <L, R, R2> myMap(either: Either<L, R>, f: (R) -> R2): Either<L, R2> = when (either) {
         is Either.Left -> either
         is Either.Right -> f(either.value).asRight()
     }
@@ -97,14 +99,14 @@ class Exercise3Either {
      */
 
     // Zip will return either the computation or the first error
-    val zipSum = 2.asRight().zip(3.asRight()) {a, b -> a + b} // Right(5)
-    val zipError = 2.asRight().zip(3.asLeft()) {a: Int, b: Int -> a + b} // Left(3)
+    val zipSum = 2.asRight().zip(3.asRight()) { a, b -> a + b } // Right(5)
+    val zipError = 2.asRight().zip(3.asLeft()) { a: Int, b: Int -> a + b } // Left(3)
 
     // zipOrAccumulate will return either the computation or a list of errors
     val zipOrAccumulateSum: Either<List<String>, Int> =
-        zipOrAccumulate(2.asRight(), 3.asRight()) {a, b -> a + b} // Right(5)
+        zipOrAccumulate(2.asRight(), 3.asRight()) { a, b -> a + b } // Right(5)
     val zipOrAccumulateError: Either<List<String>, Int> =
-        zipOrAccumulate("e1".asLeft(), 3.asRight(), "e2".asLeft()) {a: Int, b: Int, c: Int -> a + b + c} // Left(3)
+        zipOrAccumulate("e1".asLeft(), 3.asRight(), "e2".asLeft()) { a: Int, b: Int, c: Int -> a + b + c } // Left(3)
 
     /**
      * Create a function that given a list of nullable fields, returns either an Address or a list of invalid fields
@@ -112,6 +114,7 @@ class Exercise3Either {
      * Note: An address without phone is valid
      */
     data class InvalidField(val field: String)
+
     fun createAddress(street: String?, country: String?, phone: Phone?): Either<List<InvalidField>, Address> =
         TODO()
 }
