@@ -17,16 +17,36 @@ Happy coding! 🚀
 
 ## Working with the project
 
-### Local
+### Local / Online
+
+#### Local
 
 You can clone the project and open it with your favourite IDE. It contains also test run configurations for IntelliJ.
 Of course tests will fail until you complete each exercise 😄
 
-### Online
+#### Online
 
-You can also open this project with [gitpod.io](https://gitpod.io) using the next button
+You can also open this project online with [gitpod.io](https://gitpod.io) using the next button
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/jorexe/kotlin-fp)
+
+### Running
+
+You should run the tests to validate your work. For that you can use the script with the number of exercise
+
+```bash
+./test.sh $n
+
+./test.sh 1 # Will run tests for exercise 1
+```
+
+Or just:
+
+```bash
+./gradlew test
+```
+
+To run all tests
 
 ## Contribution
 
