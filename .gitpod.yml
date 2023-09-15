@@ -1,8 +1,9 @@
-image:
-  file: .gitpod.dockerfile
+image: gitpod/workspace-full
+
 tasks:
   - init: ./gradlew clean build
     command: ./gradlew test
+
 vscode:
   extensions:
     - mathiasfrohlich.Kotlin
