@@ -48,18 +48,20 @@ class Exercise3Either {
      */
     object NullObjectFound
 
-    fun <T> eitherValueOrNullObjectFound(t: T?): Either<NullObjectFound, T> = TODO()
+    fun <T> eitherValueOrNullObjectFound(t: T?): Either<NullObjectFound, T> =
+        t?.asRight() ?: NullObjectFound.asLeft()
 
     /**
      * Now try to implement same function, but receiving the error as parameter. Even better if it is using a consumer
      */
-    //fun eitherValueOrError() = TODO()
+    fun <T, L> eitherValueOrError(t: T?, error: L): Either<L, T> =
+        t?.asRight() ?: error.asLeft()
 
     /**
      * Write a function that given an Address returns its street
      */
     fun getStreet(address: Either<NullObjectFound, Address>): Either<NullObjectFound, String> =
-        TODO()
+        address.map { it.street }
 
     /**
      * Write a function that given an Address returns its phone
@@ -67,7 +69,7 @@ class Exercise3Either {
      * Hint: You can use eitherValueOrNullObjectFound
      */
     fun getPhone(address: Either<NullObjectFound, Address>): Either<NullObjectFound, Phone> =
-        TODO()
+        address.flatMap { eitherValueOrNullObjectFound(it.phone.getOrNull()) }
 
     /**
      * Take a look at this myMap implementation, please make sure you understand the signature and the generic types
@@ -80,18 +82,24 @@ class Exercise3Either {
     /**
      * Write myFlatMap function and its signature
      */
-    // TODO()
+    fun <L, R, R2> myFlatMap(either: Either<L, R>, f: (R) -> Either<L, R2>): Either<L, R2> = when (either) {
+        is Either.Left -> either
+        is Either.Right -> f(either.value)
+    }
 
     /**
      * Write myMap2 in terms of myFlatMap
      */
     fun <L, R, R2> myMap2(either: Either<L, R>, f: (R) -> R2): Either<L, R2> =
-        TODO()
+        myFlatMap(either) { f(it).asRight() }
 
     /**
      * Write myMapLeft function and its signature
      */
-    // TODO()
+    fun <L, R, L2> myMapLeft(either: Either<L, R>, f: (L) -> L2): Either<L2, R> = when (either) {
+        is Either.Left -> f(either.value).asLeft()
+        is Either.Right -> either
+    }
 
     /**
      * Either type has other utility functions, some of them will help us to combine multiple eithers
@@ -116,5 +124,10 @@ class Exercise3Either {
     data class InvalidField(val field: String)
 
     fun createAddress(street: String?, country: String?, phone: Phone?): Either<List<InvalidField>, Address> =
-        TODO()
+        zipOrAccumulate(
+            eitherValueOrError(street, InvalidField("street")),
+            eitherValueOrError(country, InvalidField("country")),
+        ) { s, c ->
+            Address(s, c, phone.toOptional())
+        }
 }
