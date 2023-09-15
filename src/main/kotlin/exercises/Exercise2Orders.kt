@@ -85,7 +85,7 @@ class Exercise2Orders(val productApi: ProductApi, val orderApi: OrderApi) {
         TODO()
 
     /**
-     * Function that given a list of orders returns the total amount of pending payment
+     * Function that given an userId returns the total amount of pending payment
      */
     fun pendingUserPayment(userId: UserId): Double =
         TODO()

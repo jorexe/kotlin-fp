@@ -35,8 +35,8 @@ class Exercise1ListsTest {
 
     @Test
     fun `asString tests`() {
-        assertEquals(listOf("5", "6", "7"), target.asString(listOf(1, 2, 3)))
-        assertEquals(listOf("3", "2", "1"), target.asString(listOf(-1, -2, -3)))
+        assertEquals(listOf("1", "2", "3"), target.asString(listOf(1, 2, 3)))
+        assertEquals(listOf("-1", "-2", "-3"), target.asString(listOf(-1, -2, -3)))
     }
 
     @Test
