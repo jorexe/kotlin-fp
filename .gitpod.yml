@@ -1,7 +1,7 @@
 image: gitpod/workspace-full
 
 tasks:
-  - init: ./gradlew clean build
+  - init: ./gradlew clean build -x test
     command: ./gradlew test
 
 vscode:
