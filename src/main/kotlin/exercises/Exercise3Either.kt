@@ -48,7 +48,8 @@ class Exercise3Either {
      */
     object NullObjectFound
 
-    fun <T> eitherValueOrNullObjectFound(t: T?): Either<NullObjectFound, T> = TODO()
+    fun <T> eitherValueOrNullObjectFound(t: T?): Either<NullObjectFound, T> =
+        TODO()
 
     /**
      * Now try to implement same function, but receiving the error as parameter. Even better if it is using a consumer

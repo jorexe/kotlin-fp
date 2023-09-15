@@ -91,7 +91,7 @@ class Exercise2Orders(val productApi: ProductApi, val orderApi: OrderApi) {
         TODO()
 
     /**
-     * Try to change previous function to apply subTotalDiscount only if order was created a month ago
+     * Try to change previous function to apply subTotalDiscount only if order was created within a month ago
      */
     fun pendingUserPaymentConditionalDiscount(userId: UserId): Double =
         TODO()
